@@ -174,3 +174,7 @@ Summary of NB, WB, SWB and FB speech codecs
 |AMR-WB<br>(G.722.2)|ETSI/ITU/2003|ACELP|WB|6.6-23.85|20|132-477|0|20|
 |SILK|IETF/2009|CELP|WB|6-40|20|120-800|0|20|
 
+### Legend
+|NB|WB|SWB|FB|ITU|ETSI|IETF|PCM|ADPCM|LD-CELP|CS-ACELP|MP-MLQ/ACELP|GSM|(FR) Full Rate RPE-LTP|(HR) VSELP|(EFR) ACELP|AMR|iLBC|SILK|
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|Narrowband = |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
