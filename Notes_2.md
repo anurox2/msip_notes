@@ -132,3 +132,45 @@ $a_1, i = 1\cdots N$ are the estimated predictor coefficients. The difference si
    - Conjugate Structure Algebraic Code Excited Linear Prediction (CS-ACELP) G.729 uses look ahead buffer to see whether next sample matches pattern already in cookbook. If it does only index is sent instead of actual sample.
    - Low-Delay Conjugate Excited Linear Prediction (LDCELP) uses smaller codebook more bandwidth 16 kb/s G.728.
    - Mean Opinion Score (MOS) $4 - 3.5$ (PCM G.711 4.1)
+
+
+## Codec Summary
+Summary of NB, WB, SWB and FB speech codecs
+
+|Codec|Standard Body/Year|Type|NB or WB or FB|Bit rate (kb/s)|Speech frame(ms)|Bits per sample/frame|Look-ahead (ms)|Algorithm delay (ms)|
+|-|-|-|-|-|-|-|-|-|
+|G.711|ITU/1972|PCM|NB|64|0.125|8|0|0.125|
+|G.726|ITU/1990|ADPCM|NB|40|0.125|5|0|0.125|
+|||||32||4||
+|||||24||3||
+|||||16||2||
+|G.728|ITU/1992|LD-CELP|NB|16|0.625|10|0|0.625|
+|G.729|ITU/1996|CS-ACELP|NB|8|10|80|5|15|
+|G.723.1|ITU/1996|ACELP|NB|5.3|30|159|7.5|37.5|
+|||MP-MLQ|NB|6.3||189||
+|GSM|ETSI/1991|(FR)RPE-LTP|NB|13|20|260|0|20|
+||ETSI/1999|(HR)VSELP|NB|5.6||112|0|20|
+||ETSI/2000|(EFR)ACELP|NB|12.2||244|0|20|
+|AMR|ETSI/2000|ACELP|NB|4.75|20|95|5|25|
+|||||5.15||103|||
+|||||5.9||118|||
+|||||6.7||134|||
+|||||7.4||148|||
+|||||7.95||159|||
+|||||10.2||204|||
+|||||12.2||244|||
+|iBLC|IETF/2004|CELP|NB|15.2|20|304|0|20|
+|||||13.33|30|400||30|
+|G.711.1|ITU/2008|PCM-WB<br>(MDCT)|NB/WB|64|5|320|5|11.875|
+|||||80||400|||
+|||||96||480|||
+|G.722|ITU/1988|SB-ADPCM|WB|64|0.125|8|0|0.125|
+|||||56||7|||
+|||||48||6|||
+|G.722.1|ITU/1999|Transform Coding|WB|24|0.125|8|0|0.125|
+|||||32||640|||
+||ITU/2005||SWB|24/32/48||480-960|||
+|G.719|ITU/2008|Transform Coding|FB|32-128|20|640-2560|20|40|
+|AMR-WB<br>(G.722.2)|ETSI/ITU/2003|ACELP|WB|6.6-23.85|20|132-477|0|20|
+|SILK|IETF/2009|CELP|WB|6-40|20|120-800|0|20|
+
