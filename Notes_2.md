@@ -175,6 +175,86 @@ Summary of NB, WB, SWB and FB speech codecs
 |SILK|IETF/2009|CELP|WB|6-40|20|120-800|0|20|
 
 ### Legend
-|NB|WB|SWB|FB|ITU|ETSI|IETF|PCM|ADPCM|LD-CELP|CS-ACELP|MP-MLQ/ACELP|GSM|(FR) Full Rate RPE-LTP|(HR) VSELP|(EFR) ACELP|AMR|iLBC|SILK|
-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
-|Narrowband = |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+Abbreviation| Description
+-|-
+NB|Narrowband = 0 - 4kHz
+WB|Wideband = 0 – 7kHz high fidelity speech general audio frequency range
+SWB|Super-Wideband = 50 – 14kHz
+FB|Fullband = 20 – 20kHz to provide high quality, efficient compression for speech music and general audio. Used in teleconferencing and tele-presence applications
+ITU|International Telecommunications Union
+ETSI|European Telecommunication Standards Institute
+IETF|Internet Engineering Task Force
+PCM|Pulse Code Modulation
+ADPCM|Adaptive Differential Pulse Code Modulation
+LD-CELP|Low-delay Code Excited Linear Prediction uses analysis-by-synthesis approach for codebook search
+CS-ACELP|Conjugate Structure-Algebraic Code Excited Linear Prediction
+MP-MLQ/ACELP|Multi Pulse—Maximum Likelihood Quantization 
+GSM|Global System for Mobile Communications
+(FR) Full Rate RPE-LTP|Regular Pulse Excitation/Long Term Prediction Linear prediction coder
+(HR) VSELP|Half Rate Vector-Sum Excited Linear Prediction
+(EFR) ACELP|Enhanced Full Rate ACELP
+AMR|Adaptive Multi Rate Used in wireless communications (3G)
+iLBC|Internet Low Bit Rate Codec robust tolerance to packet loss used in Google Talk and Yahoo Messenger
+SILK|Super Wideband Audio Codec used in Skype
+
+---
+---
+
+### Summary of NB, WB, SWB, and FB speech/audio compression coding
+
+|Mode|Signal Bandwidth (Hz)|Sampling rate (kHz)|Bit-rate(kb/s)|Examples|
+|-|-|-|-|-|
+|Narrowband (NB)|300 - 3400|8|2.4 - 64|G.711, G.729, G.723, AMR, LPC-10|
+|Wideband (WB)|50 - 7000|16|6.6 - 96|G.711.1, G.722, G.722.1, G.722.2|
+|Super-wideband (SWB)|50 - 14000|32|24 - 48|G.722.1 (Annex C)|
+|Fullband (FB)|20 - 20000|48|32 - 128|G.719|
+
+
+### Things to think about regarding Codecs
+1. **Determine the input and output data rates for a G.711 codec given that the sample rate is 8kHz and the sample is converted to a 14-bit linear code before being compressed into non-linear PCM.**
+
+    Ans:
+    - Input data rate $= 8000$ samples/sec * $14$ bits/sample $= 112$ kb/s
+    - Output data rate $= 8000$ samples/sec * $8$ bits/sample $= 64$ kb/s
+
+    The compression ratio is <font size="4">$\frac{112}{64}$ </font>$= 1.75$
+
+
+2. **The G.726 codec is based on ADPCM (Adaptive Differential PCM). Assume the codec’s input speech signal is 16-bit linear PCM with a sampling rate of 8 kHz. The output of the G.726 can operate at four possible data rates; 40kb/s, 32kb/s, 24kb/s and 16 kb/s. How are these data rates obtained?**
+
+    Ans: For the ADPCM encoder, only the difference signal between the input PCM linear signal and the predicted signal is quantized and coded. The difference signal has a much smaller dynamic range than the input to the PCM speech signal so fewer quantization levels are needed.
+
+    - Assume that the number of bits needed to code each quantized difference signal is x, 
+    - For $40$ kb/s        
+        => $40$ kb/s = $8000$ samples/sec $*$ bits/sample
+    <br>=> $X = 40*$<font size="4">$\frac{1000}{8000}$</font> $= 5$ bits/sample
+    
+    - For $32$ kb/s        
+        => $32$ kb/s = $8000$ samples/sec $*$ bits/sample
+    <br>=> $X = 32*$<font size="4">$\frac{1000}{8000}$</font> $= 4$ bits/sample
+    
+    - For $24$ kb/s        
+        => $24$ kb/s = $8000$ samples/sec $*$ bits/sample
+    <br>=> $X = 24*$<font size="4">$\frac{1000}{8000}$</font> $= 3$ bits/sample
+    
+    - For $16$ kb/s        
+        => $16$ kb/s = $8000$ samples/sec $*$ bits/sample
+    <br>=> $X = 16*$<font size="4">$\frac{1000}{8000}$</font> $= 2$ bits/sample
+    
+    For compression ratios when compared to standard PCM at $64$ kb/s
+    - <font size="4">$\frac{64}{40}$</font> $= 1.6$
+    - <font size="4">$\frac{64}{32}$</font> $= 2$
+    - <font size="4">$\frac{64}{24}$</font> $= 2.67$
+    - <font size="4">$\frac{64}{16}$</font> $= 4$
+
+---
+---
+
+
+3. **The G.723.1 codec transmission rates can operate at 5.3(ACELP Algebraic-Code-Excited Linear Predication) or 6.3 kb/s (MPMLQ Multi-Pulse—Maximum Likelihood Quantization)**
+   1. What is the frame size?
+   <br>Ans: $30$ ms
+
+   2. How many samples are in each frame?
+   <br>Ans: G.723.1 is a narrow band code so the sampling rate would be $8000$ samples/sec
+   <br>$8000$ samples/sec $* 20 $ ms
