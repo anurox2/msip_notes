@@ -47,16 +47,16 @@ Approximate Probability Density Function of Speech<br>
 - Each *segment* is divided into steps.
 - Using a logarithmic scale, more accurate samples are taken at lower volumes.
 
-Two logarithmic coding schemes are used. That used in the United States and Japan is called the $\mu$-law. Other countries use the A-law coding scheme.
+Two logarithmic coding schemes are used. That used in the United States and Japan is called the <img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/>-law. Other countries use the A-law coding scheme.
 
-The $\mu$-law is represented by the following equation:
+The <img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/>-law is represented by the following equation:
 
-<font size="5">$Y = sgn(x)* \frac{ln(1+\mu|x|)}{ln(1+\mu)}$</font>
+<font size="5"><img src="/tex/a8794ff68694667cb8934b0453bcd39a.svg?invert_in_darkmode&sanitize=true" align=middle width=163.31796855pt height=33.20539859999999pt/></font>
 
-<br><font size="4">$x$</font> is the sampled input voltage scaled as shown below:
-<br>Where <font size="4">$\mu = 255$</font> and <font size="5">$x = \frac{v}{Vmax}$</font>
+<br><font size="4"><img src="/tex/332cc365a4987aacce0ead01b8bdcc0b.svg?invert_in_darkmode&sanitize=true" align=middle width=9.39498779999999pt height=14.15524440000002pt/></font> is the sampled input voltage scaled as shown below:
+<br>Where <font size="4"><img src="/tex/f4a1a1063121ff302e096e05882b2768.svg?invert_in_darkmode&sanitize=true" align=middle width=56.48018309999999pt height=21.18721440000001pt/></font> and <font size="5"><img src="/tex/b238103b24535479df38eeb52388236e.svg?invert_in_darkmode&sanitize=true" align=middle width=70.128498pt height=22.853275500000024pt/></font>
 
-In actual practice the initial waveform is sampled and coded using a uniform 16 bit quantization and then compressed through the <font size="4">$\mu$</font>-law (or A-law) to an 8 bit quantization. The 8 bit quantization consists of the following pattern:
+In actual practice the initial waveform is sampled and coded using a uniform 16 bit quantization and then compressed through the <font size="4"><img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/></font>-law (or A-law) to an 8 bit quantization. The 8 bit quantization consists of the following pattern:
 
 |P|Seg|Seg|Seg|Step|Step|Step|Step|
 |-|-|-|-|-|-|-|-|
@@ -95,9 +95,9 @@ There are three general compression techniques, waveform-based, parametric-based
    - ADPCM (ADaptive Differential PCM) G.726 uses difference signal rather than encoding entire sample.
 
 ---
-In the ADPCM, the adaptive predictor will predict or estimate the current speech signal based on previously received $N$ speech samples $\bar{s}(n)$ where 
-$\hat{s}(n) = \Big[\sum_{i=1}^N a_i(n) \bar{s} (n-i) \Big]$ where
-$a_1, i = 1\cdots N$ are the estimated predictor coefficients. The difference signal $e(n)$ is the prediction error. It is the difference between the speech signal $s(n)$ and the signal estimate $\hat{s}(n)$. The difference between $e(n)$ and $e_q(n)$ is the quantization error.
+In the ADPCM, the adaptive predictor will predict or estimate the current speech signal based on previously received <img src="/tex/f9c4988898e7f532b9f826a75014ed3c.svg?invert_in_darkmode&sanitize=true" align=middle width=14.99998994999999pt height=22.465723500000017pt/> speech samples <img src="/tex/84659e7abdc63fc6d610b7a93a790988.svg?invert_in_darkmode&sanitize=true" align=middle width=30.357788999999993pt height=24.65753399999998pt/> where 
+<img src="/tex/b967d7ec7236ffd663bc84e70a99fa18.svg?invert_in_darkmode&sanitize=true" align=middle width=205.67472254999998pt height=37.80850590000001pt/> where
+<img src="/tex/8b290a97200d7197e5bd2f6feb92da56.svg?invert_in_darkmode&sanitize=true" align=middle width=98.82686219999998pt height=22.465723500000017pt/> are the estimated predictor coefficients. The difference signal <img src="/tex/d9c6d1736675a6161cc170ea2bd3d62d.svg?invert_in_darkmode&sanitize=true" align=middle width=30.30644759999999pt height=24.65753399999998pt/> is the prediction error. It is the difference between the speech signal <img src="/tex/6fce6f7442e83e8382439264f51cb118.svg?invert_in_darkmode&sanitize=true" align=middle width=30.357788999999993pt height=24.65753399999998pt/> and the signal estimate <img src="/tex/705c21b56aef7b6538a83c3d77c71cd4.svg?invert_in_darkmode&sanitize=true" align=middle width=30.357788999999993pt height=24.65753399999998pt/>. The difference between <img src="/tex/d9c6d1736675a6161cc170ea2bd3d62d.svg?invert_in_darkmode&sanitize=true" align=middle width=30.30644759999999pt height=24.65753399999998pt/> and <img src="/tex/527e40fa49722586703dd6855af290d8.svg?invert_in_darkmode&sanitize=true" align=middle width=37.56617864999998pt height=24.65753399999998pt/> is the quantization error.
 
 ---
 
@@ -310,10 +310,10 @@ stack including the IP and UDP headers with RTP is shown on the following slide.
 - **CC**: This field (4 bits) contains the CSRC count, the number of contributing source identifiers.
 - **M**: This is the Marker bit. For voice, this marks the start of a voice talkspurt, if silence suppression is enabled at the encoder. For example, M is set to 1 for 1<sup>st</sup> packet after a silence period and is zero otherwise. For video, te marker bit is set to one (True) for the last packet of the video frame and zero otherwise.
   - For example, if an I-frame is split into 8 packets to transmit over the channel/network, the first seven packets will have the marker bit set to Zero (false) and the 8th packet (last packet for the I-frame) will have the marker bit set to One (True). If a P-frame is put into two packets. The first packet will have the marker bit set to Zero and the second packet's M bit set as One. If there is only one packet for a P or B frame, the marker bit will always be One.
-- **Payload Type (PT)**: This field (7 bits) contains the payload type for voice or video codecs, e.g., for PCM-<font size="4">$\mu$</font> law, the payload type is defined as zero. The payload type for common voice and video codecs are shown in **Tables 4.1** and **4.2**, respectively.
+- **Payload Type (PT)**: This field (7 bits) contains the payload type for voice or video codecs, e.g., for PCM-<font size="4"><img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/></font> law, the payload type is defined as zero. The payload type for common voice and video codecs are shown in **Tables 4.1** and **4.2**, respectively.
 - **Sequence number**: This field (16 bits) contains the sequence number which will be incremented by one for each RTP packet sent for detecting packet loss.
 - **Timestamp**: This field (32 bits) indicates the sampling instant when the first octet of the RTP data was generated. It is measured according to media clock rate.
   - *For voice*, the timestamp clock rate is 8 kHz for majority of codecs and 16 kHz for some codecs.
     - For example, for G.723.1 codec with frame size of 30 ms (containing 240 speech samples at 8 kHz sampling rate) and one speech frame per packet, the timestamp difference between two consecutive packets will be 240. In case of speech using G.723.1 codec, the clock rate is the same with the sampling rate and the timestamp difference based in the media clock rate for two consecutive packets can be decided by the number of speech samples which a packet contains.
-  - *For video*, the timestamp clock rate is 90 kHz for majority of codecs. The timestamp will be the same on successive packets belonging to a same video frame (e.g. one I-frame was segmented into several IP packets which will have the same timestamp values in their RTP headers). If a video encoder uses the constant frame rate, *for example* 30 frames per second, the timestamp difference between two consecutive packets (belonging to different video frames) will have the same value of 3000 (<font size="4">$\frac{90,000}{30}$</font> $= 3000$), or the media clock difference between two consecutive packets is 3000. If frame rate is reduced to half (e.g. 15 frames per second), the timestamp increment will be doubled (e.g. 6000).
+  - *For video*, the timestamp clock rate is 90 kHz for majority of codecs. The timestamp will be the same on successive packets belonging to a same video frame (e.g. one I-frame was segmented into several IP packets which will have the same timestamp values in their RTP headers). If a video encoder uses the constant frame rate, *for example* 30 frames per second, the timestamp difference between two consecutive packets (belonging to different video frames) will have the same value of 3000 (<font size="4"><img src="/tex/742845e3a0656d99da5dc83e95098176.svg?invert_in_darkmode&sanitize=true" align=middle width=36.666865949999995pt height=29.497597800000015pt/></font> <img src="/tex/af81ad0683f8b6ba28662c3b4ba6affb.svg?invert_in_darkmode&sanitize=true" align=middle width=50.22836939999999pt height=21.18721440000001pt/>), or the media clock difference between two consecutive packets is 3000. If frame rate is reduced to half (e.g. 15 frames per second), the timestamp increment will be doubled (e.g. 6000).
   - SSRC
