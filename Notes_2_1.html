@@ -10,10 +10,10 @@
 
 </head>
 <body class="markdown-body">
-<h1 id="notes-2" data-line="0" class="code-line">Notes 2</h1>
-<h2 id="speech-compression-basics-1" data-line="2" class="code-line">Speech Compression Basics 1</h2>
+<h1 id="notes-2-1" data-line="0" class="code-line">Notes 2</h1>
+<h2 id="speech-compression-basics-1-1" data-line="2" class="code-line">Speech Compression Basics 1</h2>
 <hr>
-<h3 id="speech-compression-basics" data-line="6" class="code-line">Speech Compression Basics</h3>
+<h3 id="speech-compression-basics-1" data-line="6" class="code-line">Speech Compression Basics</h3>
 <p data-line="8" class="code-line">Speech has two basic components:</p>
 <ol>
 <li data-line="10" class="code-line">Amplitude</li>
@@ -34,26 +34,26 @@
 <p data-line="33" class="code-line"><img src="/home/aman/Downloads/Git/msip_notes/images/6.png" alt="" class="loading" id="image-hash-4002bf839922d12f205895fb348b47bf99adaa96dd1befae5be0f2948bdf52a1">
 <br>Quantization and Coding</p>
 <p data-line="36" class="code-line">One then assigns a bit number representing the magnitude of the waveform. This is called <em>quantization</em>. If linear is used the lower amplitude waveforms will have a great quantization error creating greater distortion in the lower amplitude (or volume) waveforms</p>
-<h3 id="linear-quantization" data-line="38" class="code-line">Linear Quantization</h3>
+<h3 id="linear-quantization-1" data-line="38" class="code-line">Linear Quantization</h3>
 <p data-line="40" class="code-line"><img src="/home/aman/Downloads/Git/msip_notes/images/7.png" alt="" class="loading" id="image-hash-96644d80929ef8deb5912b4dd833a4e8e67897026e93a19842a053d12a81da23"></p>
 <hr>
-<h3 id="speech" data-line="44" class="code-line">Speech</h3>
+<h3 id="speech-1" data-line="44" class="code-line">Speech</h3>
 <p data-line="46" class="code-line">Approximate Probability Density Function of Speech<br>
 <img src="/home/aman/Downloads/Git/msip_notes/images/8.png" alt="" class="loading" id="image-hash-1a4732ba901619bd5cfce983704135989d1365c654819fe15520cef044e1eeb8">
 <br>Speech has a much higher probability density function (PDF) for lower level signals than for higher level signals. Therefore, to improve the signal to noise ratio when the signal is coded and then decoded back to an analog signal a non-uniform quantization scheme is utilized illustrated in the following figure:</p>
-<h3 id="logarithmic-quantization" data-line="50" class="code-line">Logarithmic Quantization</h3>
+<h3 id="logarithmic-quantization-1" data-line="50" class="code-line">Logarithmic Quantization</h3>
 <p data-line="52" class="code-line"><img src="images/9.png" alt="" class="loading" id="image-hash-ec75e3fe58a02b8b3ff4d768447dc4585c11b92fd4432395f2e0f2f6afad277c"></p>
 <ul>
 <li data-line="54" class="code-line">A sample is taken every 1/8000<sup>th</sup> of a second.</li>
 <li data-line="55" class="code-line">Each <em>segment</em> is divided into steps.</li>
 <li data-line="56" class="code-line">Using a logarithmic scale, more accurate samples are taken at lower volumes.</li>
 </ul>
-<p data-line="58" class="code-line">Two logarithmic coding schemes are used. That used in the United States and Japan is called the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>-law. Other countries use the A-law coding scheme.</p>
-<p data-line="60" class="code-line">The <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>-law is represented by the following equation:</p>
+<p data-line="58" class="code-line">Two logarithmic coding schemes are used. That used in the United States and Japan is called the <img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/>-law. Other countries use the A-law coding scheme.</p>
+<p data-line="60" class="code-line">The <img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/>-law is represented by the following equation:</p>
 <p data-line="62" class="code-line"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>s</mi><mi>g</mi><mi>n</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>∗</mo><mfrac><mrow><mi>l</mi><mi>n</mi><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>μ</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><mrow><mi>l</mi><mi>n</mi><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>μ</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">Y=sgn(x)*\frac{ln(1+\mu|x|)}{ln(1+\mu)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">μ</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">μ</span><span class="mord mtight">∣</span><span class="mord mathdefault mtight">x</span><span class="mord mtight">∣</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
-<p data-line="64" class="code-line"><br><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span></font> is the sampled input voltage scaled as shown below:
-<br>Where <font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>255</mn></mrow><annotation encoding="application/x-tex">\mu = 255</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span></span></span></span></font> and <font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mi>v</mi><mrow><mi>V</mi><mi>m</mi><mi>a</mi><mi>x</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">x = \frac{v}{Vmax}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">x</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font></p>
-<p data-line="67" class="code-line">In actual practice the initial waveform is sampled and coded using a uniform 16 bit quantization and then compressed through the <font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span></font>-law (or A-law) to an 8 bit quantization. The 8 bit quantization consists of the following pattern:</p>
+<p data-line="64" class="code-line"><br><font size="4"><img src="/tex/332cc365a4987aacce0ead01b8bdcc0b.svg?invert_in_darkmode&sanitize=true" align=middle width=9.39498779999999pt height=14.15524440000002pt/></font> is the sampled input voltage scaled as shown below:
+<br>Where <font size="4"><img src="/tex/f4a1a1063121ff302e096e05882b2768.svg?invert_in_darkmode&sanitize=true" align=middle width=56.48018309999999pt height=21.18721440000001pt/></font> and <font size="5"><img src="/tex/b238103b24535479df38eeb52388236e.svg?invert_in_darkmode&sanitize=true" align=middle width=70.128498pt height=22.853275500000024pt/></font></p>
+<p data-line="67" class="code-line">In actual practice the initial waveform is sampled and coded using a uniform 16 bit quantization and then compressed through the <font size="4"><img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/></font>-law (or A-law) to an 8 bit quantization. The 8 bit quantization consists of the following pattern:</p>
 <table>
 <thead>
 <tr>
@@ -72,7 +72,7 @@
 <pre data-line="73" class="code-line"><code>                    1 Polarity bit, 3 Segment bits, 4 step bits
 </code></pre>
 <hr>
-<h3 id="speech-waveform-and-spectrum" data-line="77" class="code-line">Speech Waveform and Spectrum</h3>
+<h3 id="speech-waveform-and-spectrum-1" data-line="77" class="code-line">Speech Waveform and Spectrum</h3>
 <p data-line="79" class="code-line">There are two components to speech:</p>
 <ol>
 <li data-line="81" class="code-line">&quot;Voiced sounds&quot; such as when you say a vowel like <strong>a, e, i</strong></li>
@@ -87,7 +87,7 @@ The waveforms and spectrums are substantially different. There is a patter to vo
 <img src="/home/aman/Downloads/Git/msip_notes/images/13.png" alt="" class="loading" id="image-hash-5b3eafa42fe8435155714b38c96c2510876c901cc9af7a0a57313247761551c0">
 <br><em>Sample of unvoiced speech - waveform and spectrum</em></p>
 <hr>
-<h3 id="speech-compression-and-coding-techniques" data-line="97" class="code-line">Speech Compression and coding techniques</h3>
+<h3 id="speech-compression-and-coding-techniques-1" data-line="97" class="code-line">Speech Compression and coding techniques</h3>
 <p data-line="99" class="code-line">There are three general compression techniques, waveform-based, parametric-based, and hybrid coding</p>
 <ol>
 <li data-line="101" class="code-line">Waveform based
@@ -140,7 +140,7 @@ The waveforms and spectrums are substantially different. There is a patter to vo
 </ul>
 </li>
 </ol>
-<h2 id="codec-summary" data-line="147" class="code-line">Codec Summary</h2>
+<h2 id="codec-summary-1" data-line="147" class="code-line">Codec Summary</h2>
 <p data-line="149" class="code-line">Summary of NB, WB, SWB and FB speech codecs</p>
 <table>
 <thead>
@@ -533,7 +533,7 @@ The waveforms and spectrums are substantially different. There is a patter to vo
 </tr>
 </tbody>
 </table>
-<h3 id="legend" data-line="188" class="code-line">Legend</h3>
+<h3 id="legend-1" data-line="188" class="code-line">Legend</h3>
 <table>
 <thead>
 <tr>
@@ -622,7 +622,7 @@ The waveforms and spectrums are substantially different. There is a patter to vo
 </table>
 <hr>
 <hr>
-<h3 id="summary-of-nb-wb-swb-and-fb-speechaudio-compression-coding" data-line="216" class="code-line">Summary of NB, WB, SWB, and FB speech/audio compression coding</h3>
+<h3 id="summary-of-nb-wb-swb-and-fb-speechaudio-compression-coding-1" data-line="216" class="code-line">Summary of NB, WB, SWB, and FB speech/audio compression coding</h3>
 <table>
 <thead>
 <tr>
@@ -664,7 +664,7 @@ The waveforms and spectrums are substantially different. There is a patter to vo
 </tr>
 </tbody>
 </table>
-<h3 id="things-to-think-about-regarding-codecs" data-line="225" class="code-line">Things to think about regarding Codecs</h3>
+<h3 id="things-to-think-about-regarding-codecs-1" data-line="225" class="code-line">Things to think about regarding Codecs</h3>
 <ol>
 <li data-line="227" class="code-line">
 <p data-line="227" class="code-line"><strong>Determine the input and output data rates for a G.711 codec given that the sample rate is 8kHz and the sample is converted to a 14-bit linear code before being compressed into non-linear PCM.</strong></p>
@@ -774,12 +774,12 @@ The waveforms and spectrums are substantially different. There is a patter to vo
 </ol>
 <hr>
 <hr>
-<h2 id="packetizing-and-transport-of-encoded-audio-and-video" data-line="308" class="code-line">Packetizing and Transport of encoded Audio and Video</h2>
-<h3 id="transport-control-protocol-tcp" data-line="310" class="code-line">Transport Control Protocol (TCP):</h3>
+<h2 id="packetizing-and-transport-of-encoded-audio-and-video-1" data-line="308" class="code-line">Packetizing and Transport of encoded Audio and Video</h2>
+<h3 id="transport-control-protocol-tcp-1" data-line="310" class="code-line">Transport Control Protocol (TCP):</h3>
 <p data-line="312" class="code-line">It is unsuitable for the transport of real-time applications such as voice and video over the network. The complex overhead associated with reliable in sequence packet delivery mechanisms are unsuitable for real-time processes.</p>
-<h3 id="user-datagram-protocol-udp" data-line="314" class="code-line">User Datagram protocol (UDP)</h3>
+<h3 id="user-datagram-protocol-udp-1" data-line="314" class="code-line">User Datagram protocol (UDP)</h3>
 <p data-line="316" class="code-line">It is the more suitable option. It has small header overhead but has no way of determining if packets have been lost or arriving out of sequence.</p>
-<h3 id="real-time-transport-protocolrtp" data-line="318" class="code-line">Real-time Transport Protocol—RTP</h3>
+<h3 id="real-time-transport-protocolrtp-1" data-line="318" class="code-line">Real-time Transport Protocol—RTP</h3>
 <p data-line="320" class="code-line">RTP was originally proposed in RFC 1889 in 1996. Since then it has been refined in RFC 3550 in 2003. It is intended to support the real-time transfer of multimedia data over UDP. RTP added a sequence number and timestamp field which allows the
 receiver to process the voice/video packets in the correct order. Real-Time Control protocol (RTCP) is used with RTP to monitor the quality of service of a VoIP session and convey information about the participants in an on-going session. The protocol
 stack including the IP and UDP headers with RTP is shown on the following slide.</p>
@@ -796,7 +796,7 @@ stack including the IP and UDP headers with RTP is shown on the following slide.
 <li data-line="334" class="code-line">For example, if an I-frame is split into 8 packets to transmit over the channel/network, the first seven packets will have the marker bit set to Zero (false) and the 8th packet (last packet for the I-frame) will have the marker bit set to One (True). If a P-frame is put into two packets. The first packet will have the marker bit set to Zero and the second packet's M bit set as One. If there is only one packet for a P or B frame, the marker bit will always be One.</li>
 </ul>
 </li>
-<li data-line="335" class="code-line"><strong>Payload Type (PT)</strong>: This field (7 bits) contains the payload type for voice or video codecs, e.g., for PCM-<font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span></font> law, the payload type is defined as zero. The payload type for common voice and video codecs are shown in <strong>Tables 4.1</strong> and <strong>4.2</strong>, respectively.</li>
+<li data-line="335" class="code-line"><strong>Payload Type (PT)</strong>: This field (7 bits) contains the payload type for voice or video codecs, e.g., for PCM-<font size="4"><img src="/tex/07617f9d8fe48b4a7b3f523d6730eef0.svg?invert_in_darkmode&sanitize=true" align=middle width=9.90492359999999pt height=14.15524440000002pt/></font> law, the payload type is defined as zero. The payload type for common voice and video codecs are shown in <strong>Tables 4.1</strong> and <strong>4.2</strong>, respectively.</li>
 <li data-line="336" class="code-line"><strong>Sequence number</strong>: This field (16 bits) contains the sequence number which will be incremented by one for each RTP packet sent for detecting packet loss.</li>
 <li data-line="337" class="code-line"><strong>Timestamp</strong>: This field (32 bits) indicates the sampling instant when the first octet of the RTP data was generated. It is measured according to media clock rate.
 <ul>
