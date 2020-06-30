@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/lib/index.min.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.6.5/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head>
+<body class="markdown-body">
+<h1 id="notes-1-2" data-line="0" class="code-line">Notes 1</h1>
+<h2 id="high-level-time-line-overview-of-telecommunications-technology-2" data-line="2" class="code-line">High Level Time Line Overview of Telecommunications Technology</h2>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1950's - 1960's</td>
+<td>Microwave line of sight links for transmitting long distance telephone calls using analog modulation with frequency division multiplexing (very noisy)</td>
+</tr>
+<tr>
+<td>1960's</td>
+<td>Introduction of DS1/T1 (time division multiplexing) carrier systems carrying digital voice signals, converted from analog using non-linear pulse code modulation</td>
+</tr>
+<tr>
+<td>1970's</td>
+<td>- Introduction of linear predictive codecs to reduce digital bandwidth requirements (continued on going improvements based on advances in digital processing)<br>- 1<sup>st</sup> Generation Multimode fiber optic cable introduced 45 Mb/s-140Mb/s bandwidth</td>
+</tr>
+<tr>
+<td>1980's</td>
+<td>- 1<sup>st</sup> Cellular Phones (Analog System)<br>- 2<sup>nd</sup> Generation Singlemode fiber optic cable 1.7 Gb/s bandwidth repeater spacing 50 km</td>
+</tr>
+<tr>
+<td>1981</td>
+<td>IPv4 Standard RFC 791</td>
+</tr>
+<tr>
+<td>1981</td>
+<td>Commercial Introduction of 10Mb/s Ethernet</td>
+</tr>
+<tr>
+<td>1985</td>
+<td>IEEE 802.3 CSMA/CD (Based on coaxial cable)</td>
+</tr>
+<tr>
+<td>1985</td>
+<td>Code-Excited Prediction (CELP) a type of LPC</td>
+</tr>
+<tr>
+<td>1990's</td>
+<td>- 2<sup>nd</sup> Generation Digital Cellular System<br>- 3<sup>rd</sup> Generation 1.55 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>m lasers and dispersion shifted fiber 2.5 Gb/s repeater spacing 100 km<br>- Late 1990's Development of H.323 and Session Initiation Protocol Standards for VoIP Signaling</td>
+</tr>
+<tr>
+<td>1995</td>
+<td>100BASE-TX Ethernet</td>
+</tr>
+<tr>
+<td>1999</td>
+<td>1000BASE-T Ethernet</td>
+</tr>
+<tr>
+<td>2000's</td>
+<td>- 4<sup>th</sup> Generation Optical Amplification (erbium-doped fiber amplifier) and wavelength-division multiplexing 14Tb/s bandwidth over single fiber 60 km line<br>- Development and Implementation of Synchronous Optical Networking (SONET) Framing Structure to carry ATM cells, IP Packets, and Ethernet frames OC-1 51 Mb/s, OC-3 155 Mb/s, OC-12 622Mb/s, OC-192 10Gb/s, OC-768 40Gb/s</td>
+</tr>
+<tr>
+<td>2004</td>
+<td>Commercial VoIP Service Providers Proliferate</td>
+</tr>
+<tr>
+<td>2006</td>
+<td>10GBase-T Ethernet</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>Deployment of 5G Cellular up to using multiple frequencies for bandwidth improvement and lower latency up to 10 Gbp/s</td>
+</tr>
+</tbody>
+</table>
+<br>
+<hr>
+<hr>
+<h2 id="historical-overview-2" data-line="28" class="code-line">Historical Overview</h2>
+<h3 id="public-switched-telephone-network-pstn-2" data-line="30" class="code-line">Public Switched Telephone Network (PSTN)</h3>
+<p data-line="32" class="code-line"><img src="images/1.png" alt="Components of a Telephony Network" class="loading" id="image-hash-0b520df6a0d9d3c4e443f4ea574b205a713ab768c6929d32f5b35dcb2bfb43ae">
+<br>Components of a Telephony Network</p>
+<table>
+<thead>
+<tr>
+<th>Abreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CO</td>
+<td>Central Office</td>
+</tr>
+<tr>
+<td>PBX</td>
+<td>Private Branch Exchange</td>
+</tr>
+</tbody>
+</table>
+<p data-line="40" class="code-line"><img src="images/2.png" alt="University Telephone System" class="loading" id="image-hash-79901dad84dc3063f251578f7391a63461cfb495f98f9b2878e9f96b4c578b31">
+<br>University Telephone System</p>
+<h4 id="three-categories-of-signaling-2" data-line="43" class="code-line">Three Categories of Signaling</h4>
+<ul>
+<li data-line="45" class="code-line">Supervisory signaling</li>
+<li data-line="46" class="code-line">Address signaling</li>
+<li data-line="47" class="code-line">Information signaling</li>
+</ul>
+<hr>
+<h4 id="supervisory-signaling-2" data-line="51" class="code-line">Supervisory Signaling</h4>
+<ul>
+<li data-line="53" class="code-line">Loop Start Signaling
+<ul>
+<li data-line="54" class="code-line">Phone goes off-hook <strong>-48</strong> volts DC between tip and ring, current starts to flow</li>
+</ul>
+</li>
+<li data-line="55" class="code-line">Ground Start Signaling
+<ul>
+<li data-line="56" class="code-line">Ring Lead goes to ground</li>
+</ul>
+</li>
+<li data-line="57" class="code-line">Ringing
+<ul>
+<li data-line="58" class="code-line"><strong>75</strong> volts AC sent to destination phone from telephone switch</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="address-signaling-2" data-line="62" class="code-line">Address Signaling</h4>
+<ul>
+<li data-line="64" class="code-line">Pulse Dialing (old rotary phones)</li>
+<li data-line="65" class="code-line">Dual Tone Multifrequency (DTMF). Introduced commerically in 1963</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Frequency</th>
+<th>1209 Hz</th>
+<th>1336 Hz</th>
+<th>1477 Hz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>697 Hz</strong></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>770 Hz</strong></td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td><strong>852 Hz</strong></td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+<tr>
+<td><strong>941 Hz</strong></td>
+<td>*</td>
+<td>0</td>
+<td>#</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="information-signaling-2" data-line="76" class="code-line">Information Signaling</h4>
+<table>
+<thead>
+<tr>
+<th>Information Signal</th>
+<th>Description</th>
+<th>Frequencies (Hz)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dial Tone</strong></td>
+<td>Heard by caller after picking up the handset</td>
+<td>350 and 400</td>
+</tr>
+<tr>
+<td><strong>Ring Back</strong></td>
+<td>Heard by caller, indicating that the called phone is ringing</td>
+<td>440 and 480</td>
+</tr>
+<tr>
+<td><strong>Busy Signal</strong></td>
+<td>Heard by the caller, indicating that the called phone is off-hook</td>
+<td>480 and 620</td>
+</tr>
+<tr>
+<td><strong>Reorder tone</strong></td>
+<td>Heard by the caller, indicating that the call cannot be completed</td>
+<td>480 and 620</td>
+</tr>
+</tbody>
+</table>
+<h3 id="voip-components-2" data-line="85" class="code-line">VoIP Components</h3>
+<p data-line="87" class="code-line"><img src="/home/aman/Downloads/Git/msip_notes/images/3.png" alt="VoIP Components" class="loading" id="image-hash-5df57fad95ffaa5cdcb2981473d14f76982e3ac332befff07ac15e9f8c225e23">
+<br>VoIP Components</p>
+<ul>
+<li data-line="90" class="code-line">IP Phones - Have an Ethernet network connection used to send an receive calls.</li>
+<li data-line="91" class="code-line">Call agents - Many features to manage VoIP network Cisco CallManager (CCM).</li>
+<li data-line="92" class="code-line">Gateways - Forward calls between different types of networks. Call from a VoIP phone to home phone via the PSTN.</li>
+<li data-line="93" class="code-line">Gatekeepers - Monitor/Manage available bandwidth on WAN.</li>
+<li data-line="94" class="code-line">Multipoint Control Units (MCUs) - Used in processing conference calls.</li>
+<li data-line="95" class="code-line">Voice-enabled Ethernet switches - Provide QoS configuration features. When VoIP phone is detected provide power over Ethernet (POE). Provide VLAN features to separate voice and data.</li>
+</ul>
+
+</body></html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/lib/index.min.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.6.5/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head>
+<body class="markdown-body">
+<h1 id="exam-1-review-2" data-line="0" class="code-line">Exam 1 Review</h1>
+<h3 id="q1-understand-basic-concepts-of-historical-pstn-2" data-line="2" class="code-line">Q1. Understand basic concepts of Historical PSTN</h3>
+<blockquote data-line="4" class="code-line">
+<p data-line="4" class="code-line"><strong>Ans</strong>:
+<a href="./Notes_1.html" data-href="./Notes_1.html">Notes 1 has the answers</a></p>
+</blockquote>
+<h3 id="q2-understanding-different-approaches-to-digitizing-and-reproducing-a-voice-signal-pcm-waveform-sampling-and-vocoders-2" data-line="7" class="code-line">Q2. Understanding different approaches to digitizing and reproducing a voice signal (PCM, waveform sampling, and Vocoders)</h3>
+<blockquote data-line="9" class="code-line">
+<p data-line="9" class="code-line"><strong>Ans</strong>:</p>
+<ul>
+<li data-line="11" class="code-line">PCM - ??</li>
+</ul>
+<ul>
+<li data-line="13" class="code-line">Waveform Sampling - : In this approach, the voice signals are sampled and digitized at the encoder. The digitized bit patterns are reproduced to get the analog voice signals at the decoder.</li>
+</ul>
+</blockquote>
+<p data-line="15" class="code-line"><img src="./images/14.png" alt="Image" class="loading" id="image-hash-4a9bb291ce9c31beed059315a9b90ffc56ed5fa389e2ab1aa5d7fd26b8699a41"></p>
+<blockquote data-line="17" class="code-line">
+<ul>
+<li data-line="17" class="code-line">
+<p data-line="17" class="code-line">Vocoders - A vocoder instead of sending entire bit patterns like wave-form sampling, it sends the parameter lists of synthesized voice to the decoders. The decoders takes the parameter lists of synthesized voice as input and produce analog voice signals as output.</p>
+<p data-line="19" class="code-line">The vocoders are a simple parametric approach and the refinement to this approach is hybrid compression coding which uses the pitch excitation coefficient of the voice resulting in lesser errors in comparison to original and synthesized voice.</p>
+<p data-line="21" class="code-line">They produce a model the voice system and produce voice from that.</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="q3-understand-the-reason-for-non-uniform-quantization-for-voice-signals-2" data-line="23" class="code-line">Q3. Understand the reason for non-uniform quantization for voice signals</h3>
+<blockquote data-line="25" class="code-line">
+<p data-line="25" class="code-line"><strong>Ans</strong>: Because the pdf for low amplitudes is higher in voice signals, non-uniform quantization (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>-law and A-law) is used to increase the accuracy of quantization at low level amplitudes to reduce the distortion produced by quantization error.</p>
+</blockquote>
+<h3 id="q4-e280a2-understand-the-difference-in-simple-vocoders-parametric-based-and-analysis-by-synthesis-2" data-line="27" class="code-line">Q4. • Understand the difference in simple vocoders (Parametric-based) and analysis-by-synthesis</h3>
+<blockquote data-line="29" class="code-line">
+<p data-line="29" class="code-line"><strong>Ans</strong>: Two vocoder techniques which take advantage of the stationary property of a voice signal over short periods of time:</p>
+<ul>
+<li data-line="31" class="code-line">
+<p data-line="31" class="code-line">The parametric model:</p>
+<ul>
+<li data-line="33" class="code-line">Assumes the speech signal is stationary or the shape of the vocal tract is stable for short periods of time (e.g. 20 msec)</li>
+<li data-line="34" class="code-line">Sends only relevant parameters for application to the speech reproduction model to the receiver</li>
+<li data-line="35" class="code-line">High compression ratios can be achieved</li>
+<li data-line="36" class="code-line">Normally operates in bit rates from 4.8 to 1.2 kb/s
+<img src="16.png" alt="" class="loading" id="image-hash-3cd4abaf720677cb2cb285e67906f8d67b47bf9dd6fa47a182225bc78d0e983a"> &gt; <img src="17.png" alt="" class="loading" id="image-hash-9110c7de4fcf4f18323d632e43dfc236236ab03d8431106d6163ab8e73492b11"></li>
+</ul>
+</li>
+<li data-line="39" class="code-line">
+<p data-line="39" class="code-line">Analysis-by-Synthesis (Hybrid Compression Coding):</p>
+<ul>
+<li data-line="40" class="code-line">Find the best match excitation signal which results in the minimum error between the original and synthesized speech signal</li>
+<li data-line="41" class="code-line">Combines the features of both waveform and parametric coding—Analysis-by-Synthesis (AbS)</li>
+<li data-line="42" class="code-line">Code-Excitation Linear Prediction (CELP) uses an indexed lookup to match the code of the best waveform excitation signal to be applied to the LPC process for speech reproduction</li>
+<li data-line="43" class="code-line">Bit rates from 16 kb/s to 4.8 kb/s</li>
+<li data-line="44" class="code-line">Conjugate Structure Algebraic Code Excited Linear Prediction (CS-ACELP) G.729 Uses look ahead buffer to see whether next sample matches pattern already in codebook. If it does only index is sent instead of actual sample</li>
+<li data-line="45" class="code-line">Low-Delay Conjugate Excited Linear Prediction (LDCELP) uses smaller codebook more bandwidth 16 kb/s G.728</li>
+<li data-line="46" class="code-line">Mean Opinion Score (MOS) 4-3.5 (PCM G.711 4.1)</li>
+</ul>
+</li>
+</ul>
+<p data-line="48" class="code-line">Both of these vocoders use a Linear Predication Coding process to predict the parameters for modeling the signal.</p>
+</blockquote>
+<h3 id="q5have-a-general-understanding-of-the-role-of-the-ipudprtp-headers-in-the-packetizing-and-transport-of-encoded-audio-and-video-2" data-line="50" class="code-line">Q5.Have a general understanding of The role of the IP/UDP/RTP headers in the Packetizing and Transport of Encoded Audio and Video</h3>
+<blockquote data-line="52" class="code-line">
+<p data-line="52" class="code-line"><strong>Ans</strong>: Go to <a href='Notes_2_1.html'>Notes 2</a> and scroll down to <strong>RTP headers section</strong>.</p>
+</blockquote>
+<h3 id="q6-understand-the-basic-components-of-video-compression-spatial-temporal-lossey-and-lossless-and-how-to-calculate-required-bandwidth-using-different-line-formats-and-yuv-formats-2" data-line="54" class="code-line">Q6. Understand the basic components of video compression (spatial, temporal, lossey and lossless) and how to calculate required bandwidth using different line formats and YUV formats</h3>
+<blockquote data-line="56" class="code-line">
+<p data-line="56" class="code-line"><strong>Ans</strong>:</p>
+<ul>
+<li data-line="58" class="code-line">
+<p data-line="58" class="code-line">Lossy - Lossy compression techniques process the video signal such that the resultant PDF fits the required highly non-uniform requirement. This is achieved by the exploitation of spatial and temporal correlation within and between video frames</p>
+<ul>
+<li data-line="60" class="code-line">The system generates a prediction of future frames but only transmits a coded error of the prediction (residual frame) instead of the whole frame</li>
+<li data-line="61" class="code-line">The same prediction is made based on received frames into which the decoded error is added.</li>
+<li data-line="62" class="code-line">This results in a gain of compression ratios not just because fewer coded bits are
+sent characterizing the residual frame but also the PDF is modified so that lossless compression
+can be applied with greater effectiveness.</li>
+</ul>
+</li>
+<li data-line="66" class="code-line">
+<p data-line="66" class="code-line">Lossless - Lossless compression techniques do not introduce any distortion to the original video signal. Therefore an exact copy of the input to the compressor can be recovered at the output.</p>
+<ul>
+<li data-line="68" class="code-line">The level of achievable lossless compression is given by the statistical entropy of the video signal H.</li>
+<li data-line="69" class="code-line">Lossless compression is a mechanism of allocating a variable number bits to symbols in such a manner that the bits allocated to more frequently occurring symbols is less than to symbols that occur less frequently</li>
+</ul>
+</li>
+<li data-line="71" class="code-line">
+<p data-line="71" class="code-line">Spatial Compression - The spatial compression of each frame is done with JPEG, or a modification of it. Each frame is a picture that can be independently compressed.</p>
+</li>
+<li data-line="72" class="code-line">
+<p data-line="72" class="code-line">Temporal Compression - In temporal compression, redundant frames are removed. When we watch television, for example, we received 30 frames per second. However, most of the consecutive frames are almost the same. For example, in a static scene in which someone is talking, most frames are the same except for the segment around the speaker’s lips, which changes from one frame to the next.</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="q7-understand-the-concept-of-a-wide-sense-stationary-process-particularly-as-it-relates-to-voice-signals-2" data-line="74" class="code-line">Q7. Understand the concept of a wide-sense stationary process particularly as it relates to voice signals</h3>
+<blockquote data-line="76" class="code-line">
+<p data-line="76" class="code-line"><strong>Ans:</strong> A process is said to be wide-sense stationary if the mean and the autocorrelation function (first and second order statistics) of the process are time invariant:
+For a segment of N samples of a signal x(m), an estimate of the mean value of the segment is obtained as:</p>
+<p data-line="79" class="code-line"><font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>μ</mi><mo>^</mo></mover><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mi>x</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\hat{\mu} = \frac{1}{N} \sum\limits_{n=0}^{N-1} x(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">μ</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.22222em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.4954490000000003em;vertical-align:-0.9671129999999999em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5283360000000004em;"><span style="top:-2.132887em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.0000050000000003em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop op-symbol small-op">∑</span></span></span><span style="top:-3.950005em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9671129999999999em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></font></p>
+<p data-line="81" class="code-line">Correlation is a matching process. The correlation of two signals is a measure of the similarity or dependency of their fluctuations. Autocorrelation refers to the matching of a signal with a delayed version of itself</p>
+<p data-line="83" class="code-line"><font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mi>x</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mi>x</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">R_{xx} (k) = \frac{1}{N} \sum\limits_{n=0}^{N-1} x(n) x(n-k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.4954490000000003em;vertical-align:-0.9671129999999999em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5283360000000004em;"><span style="top:-2.132887em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.0000050000000003em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop op-symbol small-op">∑</span></span></span><span style="top:-3.950005em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9671129999999999em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span></font></p>
+<p data-line="85" class="code-line">Voice signals are wide-sense stationary for short periods (20-30 ms)</p>
+</blockquote>
+<h3 id="matching-4" data-line="87" class="code-line">Matching</h3>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Word for it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Historical Telephone System</td>
+<td>PSTN</td>
+</tr>
+<tr>
+<td>Video Compression in which only the difference in successive frames is sent to the decoder</td>
+<td>Temporal Compression</td>
+</tr>
+<tr>
+<td>Sending only the difference in successive digitized voice samples rather than the full digitized sample</td>
+<td>ADPCM</td>
+</tr>
+<tr>
+<td>Video Compression in which the correlation between adjacent pixels is removed in a frame</td>
+<td>Spatial Compression</td>
+</tr>
+<tr>
+<td>A voice compression technique which uses a model of the human voice system and sends model parameters to the decoder to reproduce the voice signal</td>
+<td>Vocoder</td>
+</tr>
+<tr>
+<td>A voice compression technique which increases the quantization resolution for voice signals in the lower amplitudes</td>
+<td>Non-Uniform Quantization</td>
+</tr>
+<tr>
+<td>A random process has mean and autocorrelation that is time invariant</td>
+<td>Wide-sense stationary</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="previous-year-exam-2" data-line="101" class="code-line"><strong>Previous year exam</strong></h2>
+<hr>
+<h3 id="matching-5" data-line="105" class="code-line">Matching</h3>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Word for it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocol that provides call control and signaling with a user agent client and user agent server based on the exchange of HTTP type messages</td>
+<td>SIP</td>
+</tr>
+<tr>
+<td>Header followed by voice or video codec data payload</td>
+<td>RTP</td>
+</tr>
+<tr>
+<td>64k samples/sec 8 bits/sample</td>
+<td>PCM</td>
+</tr>
+<tr>
+<td>Compression using correlation between pixels in a video frame</td>
+<td>Spatial</td>
+</tr>
+<tr>
+<td>The human visual system is more sensitive to ____ than ____</td>
+<td>Color, Luminosity</td>
+</tr>
+<tr>
+<td>Carries time stamp information and payload type for a real-time data payload</td>
+<td>RTP</td>
+</tr>
+<tr>
+<td>A part of the SIP protocol that exchanges information regarding media attributes such as codec type and media type with a receiver</td>
+<td>SDP</td>
+</tr>
+<tr>
+<td>Processes and forwards calls between different types of networks such as a VoIP to PSTN call</td>
+<td>Gateway</td>
+</tr>
+<tr>
+<td>Compression technique that sends only the difference in successive frames</td>
+<td>Temporal</td>
+</tr>
+<tr>
+<td>A vocoder uses this process for coefficient calculations</td>
+<td>LPC</td>
+</tr>
+<tr>
+<td>Protocol used by RTP with source and destination port numbers</td>
+<td>UDP</td>
+</tr>
+</tbody>
+</table>
+<h3 id="q1-the-mean-square-distortion-is-given-by-2" data-line="121" class="code-line">Q1. The mean square distortion is given by</h3>
+<p data-line="123" class="code-line"><strong><font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></msubsup><mo stretchy="false">[</mo><mi>x</mi><mo>−</mo><msub><mi>f</mi><mi>q</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">]</mo><mn>2</mn></msup><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">D = \int_{-\infty}^{+\infty} [x-f_q (x)]^2 p(x)dx</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.380382em;vertical-align:-0.41415100000000005em;"></span><span class="mop"><span class="mop op-symbol small-op" style="margin-right:0.19445em;position:relative;top:-0.0005599999999999772em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9662310000000001em;"><span style="top:-2.34418em;margin-left:-0.19445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.2579000000000002em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.41415100000000005em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1002159999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">]</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord mathdefault">d</span><span class="mord mathdefault">x</span></span></span></span></font></strong></p>
+<p data-line="125" class="code-line"><strong>Where</strong></p>
+<p data-line="127" class="code-line"><font size="5"><strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>x</mi><mo>−</mo><msub><mi>f</mi><mi>q</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">]</mo><mn>2</mn></msup><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">[x-f_q (x)]^2 p(x)dx</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1002159999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">]</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord mathdefault">d</span><span class="mord mathdefault">x</span></span></span></span></strong></font> <strong>is the quantization error squared and p(x) is the probability density function (pdf).</strong></p>
+<p data-line="129" class="code-line"><strong>For the 3 probability density functions (a, b, c) p(x) is as shown below. Briefly describe why and where approximately non-uniform quantization should be applied if applicable.</strong></p>
+<p data-line="131" class="code-line"><img src="images/19.png" alt="a" class="loading" id="image-hash-739dde7893902653f7686ab7f84b6d1528c4352be01174e7586713dc265643c8"></p>
+<p data-line="133" class="code-line"><img src="images/20.png" alt="b" class="loading" id="image-hash-7189008bfb8b2115565003e8f6c8130d4ba06265da37a902458d87795ea8ee8e"></p>
+<p data-line="135" class="code-line">c.
+<img src="images/21.png" alt="c" class="loading" id="image-hash-629a727aa353fe5c5c5a03b4c4a44a604e0af77f28a17199f2400ba1bf8b8522"></p>
+<p data-line="138" class="code-line"><strong>Ans:</strong> Speech has a higher probability density function at lower level signals than for higher level signals. To increase the signal to noise (SNR) ratio when the signals are coded and decoded back in order to get analog voice signals then the non-uniform quantization is applicable.</p>
+<p data-line="140" class="code-line">a. The increased granularity 'y' of a sampled <strong>x</strong> value occurs to reduce the mean square distortion at higher pdf i.e. the probability density function has the higher value increasing the granularity which reduces the distortion that is around <strong>1, 4</strong></p>
+<ul>
+<li data-line="142" class="code-line"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span></span></span></span> is directly proportional to p(x)</li>
+<li data-line="143" class="code-line">The pdf is at 1,4</li>
+</ul>
+<p data-line="145" class="code-line">b. The increased granularity occurs to reduce the mean square distortion at higher probability density function.</p>
+<ul>
+<li data-line="147" class="code-line">The pdf is at 0.</li>
+</ul>
+<p data-line="149" class="code-line">c. Linear quantization is applied. The probability density function is at 1.</p>
+
+</body></html>

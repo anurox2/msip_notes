@@ -1,0 +1,929 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/lib/index.min.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.6.5/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head>
+<body class="markdown-body">
+<h1 id="notes-2" data-line="0" class="code-line">Notes 2</h1>
+<h2 id="speech-compression-basics-1" data-line="2" class="code-line">Speech Compression Basics 1</h2>
+<hr>
+<h3 id="speech-compression-basics" data-line="6" class="code-line">Speech Compression Basics</h3>
+<p data-line="8" class="code-line">Speech has two basic components:</p>
+<ol>
+<li data-line="10" class="code-line">Amplitude</li>
+<li data-line="11" class="code-line">Frequency content</li>
+</ol>
+<p data-line="13" class="code-line">To get a good representation of narrow band human voice the frequency range is approximately 300 - 3400 Hz. This is simplified to 0 - 4000 Hz.</p>
+<p data-line="15" class="code-line"><strong>Q. What would be the sampling rate to avoid aliasing as required by the Nyquist Theorem?</strong>
+<br><em>Ans. 8000 samples/sec</em></p>
+<p data-line="18" class="code-line">The reason for the Nyquist criterion is to prevent a false or alias representation of the sampled waveform</p>
+<p data-line="20" class="code-line"><strong>Aliasing</strong></p>
+<p data-line="22" class="code-line"><img src="images/4.png" alt="" class="loading" id="image-hash-0194c3572ae484ae0b424152945d00a64b98b6af0f757c7664165d1cce78911a">
+<br><em>An insufficient number of samples of the original waveform can result in a false or alias waveform</em></p>
+<hr>
+<p data-line="27" class="code-line">The initial process of sampling in called *pulse amplitude modulation <strong>(PAM)*</strong> [see figure below]
+<br><img src="/home/aman/Downloads/Git/msip_notes/images/5.png" alt="" class="loading" id="image-hash-df2d0ecd12f8ac7ea7953bfc5b7d47f34df3d1a2f1779d58e0a5efe4e06535b5">
+<br><em>Sampling</em></p>
+<hr>
+<p data-line="33" class="code-line"><img src="/home/aman/Downloads/Git/msip_notes/images/6.png" alt="" class="loading" id="image-hash-4002bf839922d12f205895fb348b47bf99adaa96dd1befae5be0f2948bdf52a1">
+<br>Quantization and Coding</p>
+<p data-line="36" class="code-line">One then assigns a bit number representing the magnitude of the waveform. This is called <em>quantization</em>. If linear is used the lower amplitude waveforms will have a great quantization error creating greater distortion in the lower amplitude (or volume) waveforms</p>
+<h3 id="linear-quantization" data-line="38" class="code-line">Linear Quantization</h3>
+<p data-line="40" class="code-line"><img src="/home/aman/Downloads/Git/msip_notes/images/7.png" alt="" class="loading" id="image-hash-96644d80929ef8deb5912b4dd833a4e8e67897026e93a19842a053d12a81da23"></p>
+<hr>
+<h3 id="speech" data-line="44" class="code-line">Speech</h3>
+<p data-line="46" class="code-line">Approximate Probability Density Function of Speech<br>
+<img src="/home/aman/Downloads/Git/msip_notes/images/8.png" alt="" class="loading" id="image-hash-1a4732ba901619bd5cfce983704135989d1365c654819fe15520cef044e1eeb8">
+<br>Speech has a much higher probability density function (PDF) for lower level signals than for higher level signals. Therefore, to improve the signal to noise ratio when the signal is coded and then decoded back to an analog signal a non-uniform quantization scheme is utilized illustrated in the following figure:</p>
+<h3 id="logarithmic-quantization" data-line="50" class="code-line">Logarithmic Quantization</h3>
+<p data-line="52" class="code-line"><img src="images/9.png" alt="" class="loading" id="image-hash-ec75e3fe58a02b8b3ff4d768447dc4585c11b92fd4432395f2e0f2f6afad277c"></p>
+<ul>
+<li data-line="54" class="code-line">A sample is taken every 1/8000<sup>th</sup> of a second.</li>
+<li data-line="55" class="code-line">Each <em>segment</em> is divided into steps.</li>
+<li data-line="56" class="code-line">Using a logarithmic scale, more accurate samples are taken at lower volumes.</li>
+</ul>
+<p data-line="58" class="code-line">Two logarithmic coding schemes are used. That used in the United States and Japan is called the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>-law. Other countries use the A-law coding scheme.</p>
+<p data-line="60" class="code-line">The <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>-law is represented by the following equation:</p>
+<p data-line="62" class="code-line"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>s</mi><mi>g</mi><mi>n</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>∗</mo><mfrac><mrow><mi>l</mi><mi>n</mi><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>μ</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><mrow><mi>l</mi><mi>n</mi><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>μ</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">Y=sgn(x)*\frac{ln(1+\mu|x|)}{ln(1+\mu)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">μ</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">μ</span><span class="mord mtight">∣</span><span class="mord mathdefault mtight">x</span><span class="mord mtight">∣</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p data-line="64" class="code-line"><br><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span></font> is the sampled input voltage scaled as shown below:
+<br>Where <font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>255</mn></mrow><annotation encoding="application/x-tex">\mu = 255</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span></span></span></span></font> and <font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mi>v</mi><mrow><mi>V</mi><mi>m</mi><mi>a</mi><mi>x</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">x = \frac{v}{Vmax}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">x</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font></p>
+<p data-line="67" class="code-line">In actual practice the initial waveform is sampled and coded using a uniform 16 bit quantization and then compressed through the <font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span></font>-law (or A-law) to an 8 bit quantization. The 8 bit quantization consists of the following pattern:</p>
+<table>
+<thead>
+<tr>
+<th>P</th>
+<th>Seg</th>
+<th>Seg</th>
+<th>Seg</th>
+<th>Step</th>
+<th>Step</th>
+<th>Step</th>
+<th>Step</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<pre data-line="73" class="code-line"><code>                    1 Polarity bit, 3 Segment bits, 4 step bits
+</code></pre>
+<hr>
+<h3 id="speech-waveform-and-spectrum" data-line="77" class="code-line">Speech Waveform and Spectrum</h3>
+<p data-line="79" class="code-line">There are two components to speech:</p>
+<ol>
+<li data-line="81" class="code-line">&quot;Voiced sounds&quot; such as when you say a vowel like <strong>a, e, i</strong></li>
+<li data-line="82" class="code-line">&quot;Unvoiced sounds&quot; such as <strong>s</strong> and <strong>sh</strong>
+The waveforms and spectrums are substantially different. There is a patter to voiced speech as shown in the two figures below.</li>
+</ol>
+<p data-line="85" class="code-line"><img src="/home/aman/Downloads/Git/msip_notes/images/10.png" alt="" class="loading" id="image-hash-524a54d2e298929478b5de595999f9dfbaff82185bbae15f2cbe8f4a6f5ade91">
+<img src="/home/aman/Downloads/Git/msip_notes/images/11.png" alt="" class="loading" id="image-hash-e6acb69124115b3fb856d51458cb19206d687e7a19c28331fb9bde98d0cda633">
+<br><em>Sample of voiced speech - waveform and spectrum</em></p>
+<p data-line="89" class="code-line">The &quot;unvoiced&quot; speech shown in the figure is much more random and &quot;noise like&quot;.</p>
+<p data-line="91" class="code-line"><img src="/home/aman/Downloads/Git/msip_notes/images/12.png" alt="" class="loading" id="image-hash-f6e586af701972030dcf800dc3a583aeb0dfcb032dbf1f61fb01da115ee6d34c">
+<img src="/home/aman/Downloads/Git/msip_notes/images/13.png" alt="" class="loading" id="image-hash-5b3eafa42fe8435155714b38c96c2510876c901cc9af7a0a57313247761551c0">
+<br><em>Sample of unvoiced speech - waveform and spectrum</em></p>
+<hr>
+<h3 id="speech-compression-and-coding-techniques" data-line="97" class="code-line">Speech Compression and coding techniques</h3>
+<p data-line="99" class="code-line">There are three general compression techniques, waveform-based, parametric-based, and hybrid coding</p>
+<ol>
+<li data-line="101" class="code-line">Waveform based
+<ul>
+<li data-line="102" class="code-line">Mainly to remove redundancy in the speech waveform and reconstruct the waveform at the decoder side.</li>
+<li data-line="103" class="code-line">Simple and low in implementation complexity</li>
+<li data-line="104" class="code-line">Compression ratios are low</li>
+<li data-line="105" class="code-line">Typical bit range from 64 kb/s to 16 kb/s</li>
+<li data-line="106" class="code-line">Typical waveform-based speech codecs are PCM G.711</li>
+<li data-line="107" class="code-line">ADPCM (ADaptive Differential PCM) G.726 uses difference signal rather than encoding entire sample.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p data-line="111" class="code-line">In the ADPCM, the adaptive predictor will predict or estimate the current speech signal based on previously received <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> speech samples <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>s</mi><mo>ˉ</mo></mover><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\bar{s}(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">ˉ</span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> where
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>s</mi><mo>^</mo></mover><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mo fence="false">[</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mover accent="true"><mi>s</mi><mo>ˉ</mo></mover><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo stretchy="false">)</mo><mo fence="false">]</mo></mrow><annotation encoding="application/x-tex">\hat{s}(n) = \Big[\sum_{i=1}^N a_i(n) \bar{s} (n-i) \Big]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.80002em;vertical-align:-0.65002em;"></span><span class="mord"><span class="delimsizing size2">[</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">ˉ</span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.80002em;vertical-align:-0.65002em;"></span><span class="mord mathdefault">i</span><span class="mclose">)</span><span class="mord"><span class="delimsizing size2">]</span></span></span></span></span> where
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo separator="true">,</mo><mi>i</mi><mo>=</mo><mn>1</mn><mo>⋯</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">a_1, i = 1\cdots N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> are the estimated predictor coefficients. The difference signal <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">e</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> is the prediction error. It is the difference between the speech signal <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">s(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> and the signal estimate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>s</mi><mo>^</mo></mover><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\hat{s}(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">s</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>. The difference between <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">e</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>q</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_q(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> is the quantization error.</p>
+<hr>
+<p data-line="117" class="code-line"><img src="images/14.png" alt="" class="loading" id="image-hash-d323f70507e7be1e9e1d1ed5c1e0d0335315e078a228e22a5690344fe7936f40">
+<br><center><em>Encoder</em></center></p>
+<p data-line="120" class="code-line"><img src="images/15.png" alt="" class="loading" id="image-hash-ed2d25a44eefbbd4ce056d025e5b870efbe6c21379bda256d63f780e6a67f2d4">
+<br><center><em>Decoder</em></center>
+<br><em>Block Diagram for ADPCM Codec</em></p>
+<ol start="2">
+<li data-line="124" class="code-line">Parametric based
+<ul>
+<li data-line="125" class="code-line">Based on how speech is produced.</li>
+<li data-line="126" class="code-line">Assumes the speech signal is stationary or the shape of the vocal tract is stable for short periods of time (e.g. 20 msec).</li>
+<li data-line="127" class="code-line">Sends only relevant parameters for application to the speech reproduction model to the receiver.</li>
+<li data-line="128" class="code-line">High compression ratios can be achieved.</li>
+<li data-line="129" class="code-line">Normally operates in bit rates from 4.8 to 1.2 kb/s.</li>
+<li data-line="130" class="code-line">Speech sound is more mechanical based on a simple Linear Predictive Coding (LPC) model <em>(see the associated figures)</em></li>
+</ul>
+</li>
+</ol>
+<p data-line="132" class="code-line"><img src="images/16.png" alt="" class="loading" id="image-hash-a036059311cfb67b49446d4eab1865826db10174644ce66a282d6d88a4a78e66">
+<br><center><em>Speech generation mathematical model</em></center></p>
+<p data-line="135" class="code-line"><img src="images/17.png" alt="" class="loading" id="image-hash-f3f73e0fb257275b3134ac102a4e67e3de2a6b73c917f0dd9cce69a8140ad0ba">
+<br><center><em>The LPC Model</em></center></p>
+<ol start="3">
+<li data-line="138" class="code-line">Hybrid Compression Coding - Analysis-by-Synthesis
+<ul>
+<li data-line="139" class="code-line">Find the best match excitation signal which results in the minimum error between the original and synthesized speech signal.</li>
+<li data-line="140" class="code-line">Combines the features of both waveform and parametric coding - Analysis-by-Synthesis (AbS).</li>
+<li data-line="141" class="code-line">Code-Excitation Linear Prediction (CELP) uses an indexed lookup to match the code of the best waveform excitation signal to be applied to the LPC process for speech reproduction.</li>
+<li data-line="142" class="code-line">Bit rates from 16 kb/s to 4.8 kb/s.</li>
+<li data-line="143" class="code-line">Conjugate Structure Algebraic Code Excited Linear Prediction (CS-ACELP) G.729 uses look ahead buffer to see whether next sample matches pattern already in cookbook. If it does only index is sent instead of actual sample.</li>
+<li data-line="144" class="code-line">Low-Delay Conjugate Excited Linear Prediction (LDCELP) uses smaller codebook more bandwidth 16 kb/s G.728.</li>
+<li data-line="145" class="code-line">Mean Opinion Score (MOS) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>−</mo><mn>3.5</mn></mrow><annotation encoding="application/x-tex">4 - 3.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">.</span><span class="mord">5</span></span></span></span> (PCM G.711 4.1)</li>
+</ul>
+</li>
+</ol>
+<h2 id="codec-summary" data-line="147" class="code-line">Codec Summary</h2>
+<p data-line="149" class="code-line">Summary of NB, WB, SWB and FB speech codecs</p>
+<table>
+<thead>
+<tr>
+<th>Codec</th>
+<th>Standard Body/Year</th>
+<th>Type</th>
+<th>NB or WB or FB</th>
+<th>Bit rate (kb/s)</th>
+<th>Speech frame(ms)</th>
+<th>Bits per sample/frame</th>
+<th>Look-ahead (ms)</th>
+<th>Algorithm delay (ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G.711</td>
+<td>ITU/1972</td>
+<td>PCM</td>
+<td>NB</td>
+<td>64</td>
+<td>0.125</td>
+<td>8</td>
+<td>0</td>
+<td>0.125</td>
+</tr>
+<tr>
+<td>G.726</td>
+<td>ITU/1990</td>
+<td>ADPCM</td>
+<td>NB</td>
+<td>40</td>
+<td>0.125</td>
+<td>5</td>
+<td>0</td>
+<td>0.125</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>32</td>
+<td></td>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>24</td>
+<td></td>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>16</td>
+<td></td>
+<td>2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>G.728</td>
+<td>ITU/1992</td>
+<td>LD-CELP</td>
+<td>NB</td>
+<td>16</td>
+<td>0.625</td>
+<td>10</td>
+<td>0</td>
+<td>0.625</td>
+</tr>
+<tr>
+<td>G.729</td>
+<td>ITU/1996</td>
+<td>CS-ACELP</td>
+<td>NB</td>
+<td>8</td>
+<td>10</td>
+<td>80</td>
+<td>5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>G.723.1</td>
+<td>ITU/1996</td>
+<td>ACELP</td>
+<td>NB</td>
+<td>5.3</td>
+<td>30</td>
+<td>159</td>
+<td>7.5</td>
+<td>37.5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>MP-MLQ</td>
+<td>NB</td>
+<td>6.3</td>
+<td></td>
+<td>189</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GSM</td>
+<td>ETSI/1991</td>
+<td>(FR)RPE-LTP</td>
+<td>NB</td>
+<td>13</td>
+<td>20</td>
+<td>260</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td></td>
+<td>ETSI/1999</td>
+<td>(HR)VSELP</td>
+<td>NB</td>
+<td>5.6</td>
+<td></td>
+<td>112</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td></td>
+<td>ETSI/2000</td>
+<td>(EFR)ACELP</td>
+<td>NB</td>
+<td>12.2</td>
+<td></td>
+<td>244</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td>AMR</td>
+<td>ETSI/2000</td>
+<td>ACELP</td>
+<td>NB</td>
+<td>4.75</td>
+<td>20</td>
+<td>95</td>
+<td>5</td>
+<td>25</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>5.15</td>
+<td></td>
+<td>103</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>5.9</td>
+<td></td>
+<td>118</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>6.7</td>
+<td></td>
+<td>134</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>7.4</td>
+<td></td>
+<td>148</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>7.95</td>
+<td></td>
+<td>159</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>10.2</td>
+<td></td>
+<td>204</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>12.2</td>
+<td></td>
+<td>244</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>iBLC</td>
+<td>IETF/2004</td>
+<td>CELP</td>
+<td>NB</td>
+<td>15.2</td>
+<td>20</td>
+<td>304</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>13.33</td>
+<td>30</td>
+<td>400</td>
+<td></td>
+<td>30</td>
+</tr>
+<tr>
+<td>G.711.1</td>
+<td>ITU/2008</td>
+<td>PCM-WB<br>(MDCT)</td>
+<td>NB/WB</td>
+<td>64</td>
+<td>5</td>
+<td>320</td>
+<td>5</td>
+<td>11.875</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>80</td>
+<td></td>
+<td>400</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>96</td>
+<td></td>
+<td>480</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>G.722</td>
+<td>ITU/1988</td>
+<td>SB-ADPCM</td>
+<td>WB</td>
+<td>64</td>
+<td>0.125</td>
+<td>8</td>
+<td>0</td>
+<td>0.125</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>56</td>
+<td></td>
+<td>7</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>48</td>
+<td></td>
+<td>6</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>G.722.1</td>
+<td>ITU/1999</td>
+<td>Transform Coding</td>
+<td>WB</td>
+<td>24</td>
+<td>0.125</td>
+<td>8</td>
+<td>0</td>
+<td>0.125</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>32</td>
+<td></td>
+<td>640</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ITU/2005</td>
+<td></td>
+<td>SWB</td>
+<td>24/32/48</td>
+<td></td>
+<td>480-960</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>G.719</td>
+<td>ITU/2008</td>
+<td>Transform Coding</td>
+<td>FB</td>
+<td>32-128</td>
+<td>20</td>
+<td>640-2560</td>
+<td>20</td>
+<td>40</td>
+</tr>
+<tr>
+<td>AMR-WB<br>(G.722.2)</td>
+<td>ETSI/ITU/2003</td>
+<td>ACELP</td>
+<td>WB</td>
+<td>6.6-23.85</td>
+<td>20</td>
+<td>132-477</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td>SILK</td>
+<td>IETF/2009</td>
+<td>CELP</td>
+<td>WB</td>
+<td>6-40</td>
+<td>20</td>
+<td>120-800</td>
+<td>0</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<h3 id="legend" data-line="188" class="code-line">Legend</h3>
+<table>
+<thead>
+<tr>
+<th>Abbreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NB</td>
+<td>Narrowband = 0 - 4kHz</td>
+</tr>
+<tr>
+<td>WB</td>
+<td>Wideband = 0 – 7kHz high fidelity speech general audio frequency range</td>
+</tr>
+<tr>
+<td>SWB</td>
+<td>Super-Wideband = 50 – 14kHz</td>
+</tr>
+<tr>
+<td>FB</td>
+<td>Fullband = 20 – 20kHz to provide high quality, efficient compression for speech music and general audio. Used in teleconferencing and tele-presence applications</td>
+</tr>
+<tr>
+<td>ITU</td>
+<td>International Telecommunications Union</td>
+</tr>
+<tr>
+<td>ETSI</td>
+<td>European Telecommunication Standards Institute</td>
+</tr>
+<tr>
+<td>IETF</td>
+<td>Internet Engineering Task Force</td>
+</tr>
+<tr>
+<td>PCM</td>
+<td>Pulse Code Modulation</td>
+</tr>
+<tr>
+<td>ADPCM</td>
+<td>Adaptive Differential Pulse Code Modulation</td>
+</tr>
+<tr>
+<td>LD-CELP</td>
+<td>Low-delay Code Excited Linear Prediction uses analysis-by-synthesis approach for codebook search</td>
+</tr>
+<tr>
+<td>CS-ACELP</td>
+<td>Conjugate Structure-Algebraic Code Excited Linear Prediction</td>
+</tr>
+<tr>
+<td>MP-MLQ/ACELP</td>
+<td>Multi Pulse—Maximum Likelihood Quantization</td>
+</tr>
+<tr>
+<td>GSM</td>
+<td>Global System for Mobile Communications</td>
+</tr>
+<tr>
+<td>(FR) Full Rate RPE-LTP</td>
+<td>Regular Pulse Excitation/Long Term Prediction Linear prediction coder</td>
+</tr>
+<tr>
+<td>(HR) VSELP</td>
+<td>Half Rate Vector-Sum Excited Linear Prediction</td>
+</tr>
+<tr>
+<td>(EFR) ACELP</td>
+<td>Enhanced Full Rate ACELP</td>
+</tr>
+<tr>
+<td>AMR</td>
+<td>Adaptive Multi Rate Used in wireless communications (3G)</td>
+</tr>
+<tr>
+<td>iLBC</td>
+<td>Internet Low Bit Rate Codec robust tolerance to packet loss used in Google Talk and Yahoo Messenger</td>
+</tr>
+<tr>
+<td>SILK</td>
+<td>Super Wideband Audio Codec used in Skype</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<hr>
+<h3 id="summary-of-nb-wb-swb-and-fb-speechaudio-compression-coding" data-line="216" class="code-line">Summary of NB, WB, SWB, and FB speech/audio compression coding</h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Signal Bandwidth (Hz)</th>
+<th>Sampling rate (kHz)</th>
+<th>Bit-rate(kb/s)</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Narrowband (NB)</td>
+<td>300 - 3400</td>
+<td>8</td>
+<td>2.4 - 64</td>
+<td>G.711, G.729, G.723, AMR, LPC-10</td>
+</tr>
+<tr>
+<td>Wideband (WB)</td>
+<td>50 - 7000</td>
+<td>16</td>
+<td>6.6 - 96</td>
+<td>G.711.1, G.722, G.722.1, G.722.2</td>
+</tr>
+<tr>
+<td>Super-wideband (SWB)</td>
+<td>50 - 14000</td>
+<td>32</td>
+<td>24 - 48</td>
+<td>G.722.1 (Annex C)</td>
+</tr>
+<tr>
+<td>Fullband (FB)</td>
+<td>20 - 20000</td>
+<td>48</td>
+<td>32 - 128</td>
+<td>G.719</td>
+</tr>
+</tbody>
+</table>
+<h3 id="things-to-think-about-regarding-codecs" data-line="225" class="code-line">Things to think about regarding Codecs</h3>
+<ol>
+<li data-line="227" class="code-line">
+<p data-line="227" class="code-line"><strong>Determine the input and output data rates for a G.711 codec given that the sample rate is 8kHz and the sample is converted to a 14-bit linear code before being compressed into non-linear PCM.</strong></p>
+<p data-line="229" class="code-line">Ans:</p>
+<ul>
+<li data-line="231" class="code-line">Input data rate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>8000</mn></mrow><annotation encoding="application/x-tex">= 8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec * <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> bits/sample <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>112</mn></mrow><annotation encoding="application/x-tex">= 112</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord">2</span></span></span></span> kb/s</li>
+<li data-line="232" class="code-line">Output data rate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>8000</mn></mrow><annotation encoding="application/x-tex">= 8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec * <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span> bits/sample <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">= 64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span> kb/s</li>
+</ul>
+<p data-line="234" class="code-line">The compression ratio is <font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>112</mn><mn>64</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{112}{64}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> </font><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1.75</mn></mrow><annotation encoding="application/x-tex">= 1.75</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">7</span><span class="mord">5</span></span></span></span></p>
+</li>
+</ol>
+<ol start="2">
+<li data-line="236" class="code-line">
+<p data-line="236" class="code-line"><strong>The G.726 codec is based on ADPCM (Adaptive Differential PCM). Assume the codec’s input speech signal is 16-bit linear PCM with a sampling rate of 8 kHz. The output of the G.726 can operate at four possible data rates; 40kb/s, 32kb/s, 24kb/s and 16 kb/s. How are these data rates obtained?</strong></p>
+<p data-line="238" class="code-line">Ans: For the ADPCM encoder, only the difference signal between the input PCM linear signal and the predicted signal is quantized and coded. The difference signal has a much smaller dynamic range than the input to the PCM speech signal so fewer quantization levels are needed.</p>
+<ul>
+<li data-line="240" class="code-line">
+<p data-line="240" class="code-line">Assume that the number of bits needed to code each quantized difference signal is x,</p>
+</li>
+<li data-line="241" class="code-line">
+<p data-line="241" class="code-line">For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn></mrow><annotation encoding="application/x-tex">40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">0</span></span></span></span> kb/s<br>
+=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn></mrow><annotation encoding="application/x-tex">40</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">0</span></span></span></span> kb/s = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8000</mn></mrow><annotation encoding="application/x-tex">8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span> bits/sample
+<br>=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>40</mn><mo>∗</mo></mrow><annotation encoding="application/x-tex">X = 40*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">∗</span></span></span></span><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1000</mn><mn>8000</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1000}{8000}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">= 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span> bits/sample</p>
+</li>
+<li data-line="245" class="code-line">
+<p data-line="245" class="code-line">For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn></mrow><annotation encoding="application/x-tex">32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span></span></span></span> kb/s<br>
+=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn></mrow><annotation encoding="application/x-tex">32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span></span></span></span> kb/s = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8000</mn></mrow><annotation encoding="application/x-tex">8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span> bits/sample
+<br>=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>32</mn><mo>∗</mo></mrow><annotation encoding="application/x-tex">X = 32*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mord">∗</span></span></span></span><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1000</mn><mn>8000</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1000}{8000}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">= 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span> bits/sample</p>
+</li>
+<li data-line="249" class="code-line">
+<p data-line="249" class="code-line">For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn></mrow><annotation encoding="application/x-tex">24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">4</span></span></span></span> kb/s<br>
+=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn></mrow><annotation encoding="application/x-tex">24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">4</span></span></span></span> kb/s = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8000</mn></mrow><annotation encoding="application/x-tex">8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span> bits/sample
+<br>=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>24</mn><mo>∗</mo></mrow><annotation encoding="application/x-tex">X = 24*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">4</span><span class="mord">∗</span></span></span></span><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1000</mn><mn>8000</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1000}{8000}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">= 3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> bits/sample</p>
+</li>
+<li data-line="253" class="code-line">
+<p data-line="253" class="code-line">For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn></mrow><annotation encoding="application/x-tex">16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span></span></span></span> kb/s<br>
+=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn></mrow><annotation encoding="application/x-tex">16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span></span></span></span> kb/s = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8000</mn></mrow><annotation encoding="application/x-tex">8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span> bits/sample
+<br>=&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>16</mn><mo>∗</mo></mrow><annotation encoding="application/x-tex">X = 16*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord">∗</span></span></span></span><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1000</mn><mn>8000</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1000}{8000}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">= 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> bits/sample</p>
+</li>
+</ul>
+<p data-line="257" class="code-line">For compression ratios when compared to standard PCM at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>64</mn></mrow><annotation encoding="application/x-tex">64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span> kb/s</p>
+<ul>
+<li data-line="259" class="code-line"><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>64</mn><mn>40</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{64}{40}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1.6</mn></mrow><annotation encoding="application/x-tex">= 1.6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">6</span></span></span></span></li>
+<li data-line="260" class="code-line"><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>64</mn><mn>32</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{64}{32}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">= 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></li>
+<li data-line="261" class="code-line"><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>64</mn><mn>24</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{64}{24}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>2.67</mn></mrow><annotation encoding="application/x-tex">= 2.67</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">.</span><span class="mord">6</span><span class="mord">7</span></span></span></span></li>
+<li data-line="262" class="code-line"><font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>64</mn><mn>16</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{64}{16}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">= 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span></li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+<ol start="3">
+<li data-line="268" class="code-line">
+<p data-line="268" class="code-line"><strong>The G.723.1 codec transmission rates can operate at 5.3(ACELP Algebraic-Code-Excited Linear Predication) or 6.3 kb/s (MPMLQ Multi-Pulse—Maximum Likelihood Quantization)</strong></p>
+<ol>
+<li data-line="270" class="code-line">
+<p data-line="270" class="code-line">What is the frame size?</p>
+<ul>
+<li data-line="272" class="code-line"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn></mrow><annotation encoding="application/x-tex">30</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span></span></span></span> ms</li>
+</ul>
+</li>
+<li data-line="274" class="code-line">
+<p data-line="274" class="code-line">How many samples are in each frame?</p>
+<ul>
+<li data-line="276" class="code-line">G.723.1 is a narrow band code so the sampling rate would be <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8000</mn></mrow><annotation encoding="application/x-tex">8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec</li>
+<li data-line="277" class="code-line"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8000</mn></mrow><annotation encoding="application/x-tex">8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span> samples/sec <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn></mrow><annotation encoding="application/x-tex">30</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span></span></span></span> ms <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>240</mn></mrow><annotation encoding="application/x-tex">= 240</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">4</span><span class="mord">0</span></span></span></span> samples</li>
+</ul>
+</li>
+<li data-line="279" class="code-line">
+<p data-line="279" class="code-line">What is the number of parameter bits encoded in each frame for the operating bit rates?</p>
+<ul>
+<li data-line="280" class="code-line">For bit rate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5.3</mn></mrow><annotation encoding="application/x-tex">5.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">.</span><span class="mord">3</span></span></span></span> kb/s
+<ul>
+<li data-line="281" class="code-line"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi>m</mi><mi>s</mi><mo>∗</mo><mn>5.3</mn><mi>k</mi><mi>b</mi><mi mathvariant="normal">/</mi><mi>s</mi><mo>=</mo><mn>159</mn><mi>b</mi><mi>i</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">30 ms * 5.3 kb/s = 159 bits</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">5</span><span class="mord">.</span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">b</span><span class="mord">/</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">9</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span></span></span></span></li>
+</ul>
+</li>
+<li data-line="282" class="code-line">For bit rate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6.3</mn></mrow><annotation encoding="application/x-tex">6.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">.</span><span class="mord">3</span></span></span></span> kb/s
+<ul>
+<li data-line="283" class="code-line"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi>m</mi><mi>s</mi><mo>∗</mo><mn>6.3</mn><mi>k</mi><mi>b</mi><mi mathvariant="normal">/</mi><mi>s</mi><mo>=</mo><mn>189</mn><mi>b</mi><mi>i</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">30 ms * 6.3 kb/s = 189 bits</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">6</span><span class="mord">.</span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">b</span><span class="mord">/</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mord">9</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span></span></span></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<hr>
+<hr>
+<ol start="4">
+<li data-line="289" class="code-line">
+<p data-line="289" class="code-line"><strong>In a Voip system an 8 kb/s G.729 is applied. The packet size can be configured to include one G.729 speech frame per packet or two G.729 speech frames per packet. What is the G.729 payload size, required G.729 IP bandwidth and bandwidth efficiency in each case.</strong></p>
+<ul>
+<li data-line="291" class="code-line">For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mi>k</mi><mi>b</mi><mi mathvariant="normal">/</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">8 kb/s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">b</span><span class="mord">/</span><span class="mord mathdefault">s</span></span></span></span> G.729 codec, the length of a speech frame is 10ms, the codec bits for a 10ms frame is then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mi>k</mi><mi>b</mi><mi mathvariant="normal">/</mi><mi>s</mi><mo>∗</mo><mn>10</mn><mi>m</mi><mi>s</mi><mo>=</mo><mn>80</mn><mi>b</mi><mi>i</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">8 kb/s * 10ms = 80 bits</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">b</span><span class="mord">/</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span></span></span></span> or <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>b</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">10 bytes</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault">b</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span></span></span></span>.</li>
+<li data-line="292" class="code-line">If one packet includes one speech frame the payload is 10 bytes. If a packet includes 2 speech frames the payload is 20 bytes.</li>
+</ul>
+<p data-line="294" class="code-line">The required IP bandwidth for two frames one packet case is:
+<br><font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mn>20</mn><mo>+</mo><mn>40</mn><mo stretchy="false">)</mo><mo>∗</mo><mn>8</mn><mi>b</mi><mi>i</mi><mi>t</mi><mi>s</mi><mi mathvariant="normal">/</mi><mi>b</mi><mi>y</mi><mi>t</mi><mi>e</mi></mrow><mrow><mn>20</mn><mi>m</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{(20 + 40) * 8bits/byte}{20ms}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">2</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">4</span><span class="mord mtight">0</span><span class="mclose mtight">)</span><span class="mbin mtight">∗</span><span class="mord mtight">8</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">s</span><span class="mord mtight">/</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> = 24 kb/s</p>
+<ul>
+<li data-line="297" class="code-line">The bandwidth efficiency is: <font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>20</mn><mrow><mn>20</mn><mo>+</mo><mn>40</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{20}{20+40}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">4</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> = 0.33 or 33%</li>
+</ul>
+<p data-line="300" class="code-line">The required IP bandwidth for one frame one packet (where the IP/UDP/RTP header is 40 bytes, IP 20 bytes, UDP 8 bytes, RTP 12 bytes):
+<br><font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mn>10</mn><mo>+</mo><mn>40</mn><mo stretchy="false">)</mo><mo>∗</mo><mn>8</mn><mi>b</mi><mi>i</mi><mi>t</mi><mi>s</mi><mi mathvariant="normal">/</mi><mi>b</mi><mi>y</mi><mi>t</mi><mi>e</mi></mrow><mrow><mn>10</mn><mi>m</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{(10 + 40) * 8bits/byte}{10ms}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">4</span><span class="mord mtight">0</span><span class="mclose mtight">)</span><span class="mbin mtight">∗</span><span class="mord mtight">8</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">s</span><span class="mord mtight">/</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> = 40 kb/s</p>
+<ul>
+<li data-line="302" class="code-line">The bandwidth efficiency is: <font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>10</mn><mrow><mn>10</mn><mo>+</mo><mn>40</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{10}{10+40}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">4</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> = 0.2 or 20%</li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+<h2 id="packetizing-and-transport-of-encoded-audio-and-video" data-line="308" class="code-line">Packetizing and Transport of encoded Audio and Video</h2>
+<h3 id="transport-control-protocol-tcp" data-line="310" class="code-line">Transport Control Protocol (TCP):</h3>
+<p data-line="312" class="code-line">It is unsuitable for the transport of real-time applications such as voice and video over the network. The complex overhead associated with reliable in sequence packet delivery mechanisms are unsuitable for real-time processes.</p>
+<h3 id="user-datagram-protocol-udp" data-line="314" class="code-line">User Datagram protocol (UDP)</h3>
+<p data-line="316" class="code-line">It is the more suitable option. It has small header overhead but has no way of determining if packets have been lost or arriving out of sequence.</p>
+<h3 id="real-time-transport-protocolrtp" data-line="318" class="code-line">Real-time Transport Protocol—RTP</h3>
+<p data-line="320" class="code-line">RTP was originally proposed in RFC 1889 in 1996. Since then it has been refined in RFC 3550 in 2003. It is intended to support the real-time transfer of multimedia data over UDP. RTP added a sequence number and timestamp field which allows the
+receiver to process the voice/video packets in the correct order. Real-Time Control protocol (RTCP) is used with RTP to monitor the quality of service of a VoIP session and convey information about the participants in an on-going session. The protocol
+stack including the IP and UDP headers with RTP is shown on the following slide.</p>
+<p data-line="324" class="code-line"><img src="images/18.png" alt="" class="loading" id="image-hash-1776d1a286624b7975431346d15d341a88fc8f6c69196c7aeb387bd640cfbd37">
+<em><center>Real Time Transport Header</center></em></p>
+<p data-line="327" class="code-line"><strong>RTP Header Definitions</strong></p>
+<ul>
+<li data-line="329" class="code-line"><strong>V</strong>: This field (2 bits) contains the version of the RTP protocol. The version defined by RFC 1889[10] is two.</li>
+<li data-line="330" class="code-line"><strong>P</strong>: This is the Padding bit indicating whether there are padding fields in the RTP packet.</li>
+<li data-line="331" class="code-line"><strong>X</strong>: This is the eXtension bit indicating whether extension header is present.</li>
+<li data-line="332" class="code-line"><strong>CC</strong>: This field (4 bits) contains the CSRC count, the number of contributing source identifiers.</li>
+<li data-line="333" class="code-line"><strong>M</strong>: This is the Marker bit. For voice, this marks the start of a voice talkspurt, if silence suppression is enabled at the encoder. For example, M is set to 1 for 1<sup>st</sup> packet after a silence period and is zero otherwise. For video, te marker bit is set to one (True) for the last packet of the video frame and zero otherwise.
+<ul>
+<li data-line="334" class="code-line">For example, if an I-frame is split into 8 packets to transmit over the channel/network, the first seven packets will have the marker bit set to Zero (false) and the 8th packet (last packet for the I-frame) will have the marker bit set to One (True). If a P-frame is put into two packets. The first packet will have the marker bit set to Zero and the second packet's M bit set as One. If there is only one packet for a P or B frame, the marker bit will always be One.</li>
+</ul>
+</li>
+<li data-line="335" class="code-line"><strong>Payload Type (PT)</strong>: This field (7 bits) contains the payload type for voice or video codecs, e.g., for PCM-<font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span></font> law, the payload type is defined as zero. The payload type for common voice and video codecs are shown in <strong>Tables 4.1</strong> and <strong>4.2</strong>, respectively.</li>
+<li data-line="336" class="code-line"><strong>Sequence number</strong>: This field (16 bits) contains the sequence number which will be incremented by one for each RTP packet sent for detecting packet loss.</li>
+<li data-line="337" class="code-line"><strong>Timestamp</strong>: This field (32 bits) indicates the sampling instant when the first octet of the RTP data was generated. It is measured according to media clock rate.
+<ul>
+<li data-line="338" class="code-line"><em>For voice</em>, the timestamp clock rate is 8 kHz for majority of codecs and 16 kHz for some codecs.
+<ul>
+<li data-line="339" class="code-line">For example, for G.723.1 codec with frame size of 30 ms (containing 240 speech samples at 8 kHz sampling rate) and one speech frame per packet, the timestamp difference between two consecutive packets will be 240. In case of speech using G.723.1 codec, the clock rate is the same with the sampling rate and the timestamp difference based in the media clock rate for two consecutive packets can be decided by the number of speech samples which a packet contains.</li>
+</ul>
+</li>
+<li data-line="340" class="code-line"><em>For video</em>, the timestamp clock rate is 90 kHz for majority of codecs. The timestamp will be the same on successive packets belonging to a same video frame (e.g. one I-frame was segmented into several IP packets which will have the same timestamp values in their RTP headers). If a video encoder uses the constant frame rate, <em>for example</em> 30 frames per second, the timestamp difference between two consecutive packets (belonging to different video frames) will have the same value of 3000 (<font size="4"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>90</mn><mo separator="true">,</mo><mn>000</mn></mrow><mn>30</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{90,000}{30}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.242216em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.897216em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span><span class="mord mtight">0</span><span class="mpunct mtight">,</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></font> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>3000</mn></mrow><annotation encoding="application/x-tex">= 3000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span>), or the media clock difference between two consecutive packets is 3000. If frame rate is reduced to half (e.g. 15 frames per second), the timestamp increment will be doubled (e.g. 6000).</li>
+<li data-line="341" class="code-line">SSRC identifier: SSRC is for Synchronization Source. This field (32 bits) contains the identifier for a voice or video source. Packets originated from the same source will have the same SSRC number.</li>
+<li data-line="342" class="code-line">CSRC identifier: CSRC stands for Contribution Source. It will only be available when the CC field value is nonzero which means more than one source have been mixed to produce this packet's contents. This field (32 bits) contains an entry for the identifier of a contributing source. Maximum 16 entries can be supported.</li>
+<li data-line="343" class="code-line">Payload Type: This field (7 bits) contains the payload type for voice or video codecs, e.g. for PCM <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>-law, the payload type is defined as zero. The payload type for common voice and video codecs are shown in the tables below:</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PT</th>
+<th>Codec</th>
+<th>Media Type</th>
+<th>ms/frame</th>
+<th>Default ms/packet</th>
+<th>Clock rate(Hz)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>PCMU</td>
+<td>A</td>
+<td></td>
+<td>20</td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>GSM</td>
+<td>A</td>
+<td>20</td>
+<td>20</td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>4</td>
+<td>G.723</td>
+<td>A</td>
+<td>30</td>
+<td>30</td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>7</td>
+<td>LPC</td>
+<td>A</td>
+<td></td>
+<td></td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>8</td>
+<td>PCMA</td>
+<td>A</td>
+<td></td>
+<td>20</td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>9</td>
+<td>G.722</td>
+<td>A</td>
+<td></td>
+<td>20</td>
+<td>8,000</td>
+</tr>
+<tr>
+<td>18</td>
+<td>G.729</td>
+<td>A</td>
+<td>10</td>
+<td>20</td>
+<td>8,000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<blockquote data-line="357" class="code-line">
+<p data-line="357" class="code-line">Payload efficiencies in Ethernet frames
+Ethernet frame with IP/UDP/RTP headers and RTP payload for G.711</p>
+<table>
+<thead>
+<tr>
+<th>Ethernet header</th>
+<th>IP header</th>
+<th>UDP header</th>
+<th>RTP header</th>
+<th>RTP payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>14 bytes</td>
+<td>20 bytes</td>
+<td>8 bytes</td>
+<td>12 bytes</td>
+<td>Payload length (e.g. 160 bytes)</td>
+</tr>
+</tbody>
+</table>
+<p data-line="363" class="code-line">For a PCM stream the required bandwidth is 64kb/s
+(160bytes x 8 bits/byte)/64kb/s = 20 ms <em>[1 Ethernet frame every 20 ms]</em></p>
+<p data-line="366" class="code-line">The required bandwidth at the IP level is :
+<font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mn>160</mn><mo>+</mo><mn>40</mn><mo stretchy="false">)</mo><mo>∗</mo><mn>8</mn><mi>b</mi><mi>i</mi><mi>t</mi><mi>s</mi></mrow><mrow><mn>20</mn><mi>m</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{(160 + 40) * 8 bits}{20 ms}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mord mtight">6</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">4</span><span class="mord mtight">0</span><span class="mclose mtight">)</span><span class="mbin mtight">∗</span><span class="mord mtight">8</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> = 80 kb/s</font></p>
+<p data-line="369" class="code-line"><em>40 is the IP/UDP/RTP header</em></p>
+<blockquote data-line="371" class="code-line">
+<p data-line="371" class="code-line">The bandwidth efficiency at the IP level is:
+<font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>L</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mtext> </mtext><mi>o</mi><mi>f</mi><mtext> </mtext><mi>p</mi><mi>a</mi><mi>y</mi><mi>l</mi><mi>o</mi><mi>a</mi><mi>d</mi><mtext> </mtext><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow><mrow><mi>L</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mtext> </mtext><mi>o</mi><mi>f</mi><mtext> </mtext><mi>P</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi>e</mi><mi>t</mi><mtext> </mtext><mi>a</mi><mi>t</mi><mtext> </mtext><mi>I</mi><mi>P</mi><mtext> </mtext><mi>l</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>l</mi></mrow></mfrac><mo>=</mo><mfrac><mn>160</mn><mrow><mn>160</mn><mo>+</mo><mn>40</mn></mrow></mfrac><mo>=</mo><mn>0.8</mn><mtext> </mtext><mi>o</mi><mi>r</mi><mtext> </mtext><mn>80</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{Length\ of\ payload\ size}{Length\ of\ Packet\ at\ IP\ level} = \frac{160}{160+40} = 0.8\ or\ 80\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4133239999999998em;vertical-align:-0.481108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9322159999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">L</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">t</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.07847em;">I</span><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">L</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">d</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span><span class="mord mathdefault mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.481108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">4</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mspace"> </span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace"> </span><span class="mord">8</span><span class="mord">0</span><span class="mord">%</span></span></span></span></font></p>
+</blockquote>
+</blockquote>
+<blockquote data-line="374" class="code-line">
+<p data-line="374" class="code-line">The required bandwidth at the Ethernet level is :
+<font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mn>160</mn><mo>+</mo><mn>54</mn><mo stretchy="false">)</mo><mo>∗</mo><mn>8</mn><mi>b</mi><mi>i</mi><mi>t</mi><mi>s</mi></mrow><mrow><mn>20</mn><mi>m</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{(160 + 54) * 8 bits}{20 ms}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mord mtight">6</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">5</span><span class="mord mtight">4</span><span class="mclose mtight">)</span><span class="mbin mtight">∗</span><span class="mord mtight">8</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> = 85.6 kb/s</font></p>
+<p data-line="377" class="code-line"><em>54 is the Ethernet + IP/UDP/RTP header</em></p>
+<blockquote data-line="379" class="code-line">
+<p data-line="379" class="code-line">The bandwidth efficiency at the IP level is:
+<font size="5"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>L</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mtext> </mtext><mi>o</mi><mi>f</mi><mtext> </mtext><mi>p</mi><mi>a</mi><mi>y</mi><mi>l</mi><mi>o</mi><mi>a</mi><mi>d</mi><mtext> </mtext><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow><mrow><mi>L</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mtext> </mtext><mi>o</mi><mi>f</mi><mtext> </mtext><mi>P</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi>e</mi><mi>t</mi><mtext> </mtext><mi>a</mi><mi>t</mi><mtext> </mtext><mi>I</mi><mi>P</mi><mtext> </mtext><mi>l</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>l</mi></mrow></mfrac><mo>=</mo><mfrac><mn>160</mn><mrow><mn>160</mn><mo>+</mo><mn>54</mn></mrow></mfrac><mo>=</mo><mn>0.75</mn><mtext> </mtext><mi>o</mi><mi>r</mi><mtext> </mtext><mn>75</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{Length\ of\ payload\ size}{Length\ of\ Packet\ at\ IP\ level} = \frac{160}{160+54} = 0.75\ or\ 75\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4133239999999998em;vertical-align:-0.481108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9322159999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">L</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">t</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.07847em;">I</span><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">L</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">h</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">d</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span><span class="mord mathdefault mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.481108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">5</span><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">7</span><span class="mord">5</span><span class="mspace"> </span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace"> </span><span class="mord">7</span><span class="mord">5</span><span class="mord">%</span></span></span></span></font></p>
+</blockquote>
+</blockquote>
+
+</body></html>
